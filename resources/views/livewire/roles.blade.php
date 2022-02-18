@@ -16,7 +16,7 @@
                     <div class="d-flex mb-3">
                         <a href="{{ route('role.create') }}" class="btn btn-success text-white">Create Role</a>
                     </div>
-                    <livewire:roles-table/>
+                    <livewire:role-data-table/>
                 </div>
             </div>
         </div>

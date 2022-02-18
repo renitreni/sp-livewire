@@ -18,7 +18,7 @@
                     </div>
 
                     <div class='fill' style="div.content .fill { flex: 1; overflow-x: scroll };">
-                        <livewire:user-table/>
+                        <livewire:user-data-table/>
                     </div>
                 </div>
             </div>

@@ -58,7 +58,7 @@
                         <div class="row mb-3">
                             <div class="col-12 mb-2">
                                 <label>Role</label>
-                                <select type="password" class="form-control" wire:model="role_current">
+                                <select type="password" class="form-select" wire:model="role_current">
                                     <option value="">-- Select Options --</option>
                                     @foreach($roles as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
