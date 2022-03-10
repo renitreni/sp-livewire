@@ -12,8 +12,9 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     /**
      * Validate and update the given user's profile information.
      *
-     * @param  mixed  $user
-     * @param  array  $input
+     * @param \App\Models\User $user
+     * @param mixed[]         $input
+     *
      * @return void
      */
     public function update($user, array $input)
@@ -25,11 +26,16 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
-            $user->updateProfilePhoto($input['photo']);
+            $photo = $input['photo'];
+
+            /** @var \Illuminate\Http\UploadedFile $photo */
+            $user->updateProfilePhoto($photo);
         }
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
+        if (
+            $input['email'] !== $user->email &&
+            $user instanceof MustVerifyEmail
+        ) {
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
@@ -41,12 +47,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 
     /**
      * Update the given verified user's profile information.
-     *
-     * @param  mixed  $user
-     * @param  array  $input
-     * @return void
+     * 
+     * @param \App\Models\User $user 
+     * @param array<mixed> $input 
+     * @return void 
      */
-    protected function updateVerifiedUser($user, array $input)
+    protected function updateVerifiedUser($user, array $input): void
     {
         $user->forceFill([
             'name' => $input['name'],

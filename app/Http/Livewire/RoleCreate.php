@@ -26,7 +26,7 @@ class RoleCreate extends Component
             'level'       => 'required',
         ]);
 
-        Role::create([
+        Role::query()->create([
             'name'        => $this->name,
             'slug'        => $this->slug,
             'description' => $this->description,

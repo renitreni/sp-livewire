@@ -5,18 +5,26 @@ namespace App\Actions\Fortify;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use Psr\Container\NotFoundExceptionInterface;
+use Psr\Container\ContainerExceptionInterface;
 
+/**
+ * @method array passwordRules()
+ * @package App\Actions\Fortify 
+ * */
 class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
 
     /**
-     * Validate and create a newly registered user.
-     *
-     * @param  array  $input
-     * @return \App\Models\User
+     * @param string[] $input 
+     * @return mixed 
+     * @throws NotFoundExceptionInterface 
+     * @throws ContainerExceptionInterface 
+     * @throws ValidationException 
      */
     public function create(array $input)
     {

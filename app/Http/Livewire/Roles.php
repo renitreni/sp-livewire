@@ -16,7 +16,8 @@ class Roles extends Component
 
     public function destroyRole($role)
     {
-        Role::where('id', $role)->forceDelete();
+        Role::query()->where('id', $role)->forceDelete();
+
         session()->flash('message', 'Role successfully deleted.');
         $this->emit('fillDataRoles');
     }

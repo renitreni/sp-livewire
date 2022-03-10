@@ -15,7 +15,7 @@ class RoleEdit extends Component
 
     public function mount($role)
     {
-        $model             = Role::where('id', $role)->first();
+        $model             = Role::query()->where('id', $role)->first();
         $this->role_id     = $model->id;
         $this->name        = $model->name;
         $this->slug        = $model->slug;
@@ -37,7 +37,7 @@ class RoleEdit extends Component
             'level'       => 'required',
         ]);
 
-        Role::where('id', $this->role_id)->update([
+        Role::query()->where('id', $this->role_id)->update([
             'name'        => $this->name,
             'slug'        => $this->slug,
             'description' => $this->description,

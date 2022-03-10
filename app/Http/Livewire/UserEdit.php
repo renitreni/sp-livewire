@@ -14,6 +14,7 @@ class UserEdit extends Component
     public $password     = '';
     public $role_current = null;
     public $roles        = null;
+    public $user_id      = null;
 
     public function mount($user)
     {
@@ -21,7 +22,7 @@ class UserEdit extends Component
         $model              = User::find($user);
         $this->name         = $model->name;
         $this->email        = $model->email;
-        $this->role_current = User::where('id', $user)->with(['roles'])->first()->toArray()['roles'][0]['id'] ?? null;
+        $this->role_current = User::query()->where('id', $user)->with(['roles'])->first()->toArray()['roles'][0]['id'] ?? null;
         $this->roles        = Role::all();
     }
 
@@ -30,7 +31,7 @@ class UserEdit extends Component
         $this->validateOnly('name', [
             'name' => 'required',
         ]);
-        User::where('id', $this->user_id)->update([
+        User::query()->where('id', $this->user_id)->update([
             'name' => $this->name,
         ]);
 
@@ -44,7 +45,7 @@ class UserEdit extends Component
         $this->validateOnly('password', [
             'password' => 'required',
         ]);
-        User::where('id', $this->user_id)->update([
+        User::query()->where('id', $this->user_id)->update([
             'password' => Hash::make($this->password),
         ]);
 
@@ -56,7 +57,7 @@ class UserEdit extends Component
     public function roleUpdate()
     {
         $user = User::find($this->user_id);
-        $role = Role::find($this->role_current);
+        $role = Role::query()->find($this->role_current);
 
         $user->detachAllRoles();
         $user->attachRole($role);

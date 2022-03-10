@@ -10,7 +10,7 @@ class Kernel extends ConsoleKernel
     /**
      * The Artisan commands provided by your application.
      *
-     * @var array
+     * @var array<string>
      */
     protected $commands = [
         //
@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
